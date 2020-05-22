@@ -45,7 +45,7 @@ const App = () => {
       person.name.toLowerCase().includes(filterTerm.toLowerCase())
     );
     setFilterResult(results);
-  }, [filterTerm]);
+  }, [filterTerm]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 
@@ -54,7 +54,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <h4>filter shown with: <input onChange={handleFilter} value={filterTerm} /></h4>
+      <h5>filter shown with: <input onChange={handleFilter} value={filterTerm} /></h5>
       <h2>add a new</h2>
       <form onSubmit={setNewContact}>
         <div>
