@@ -3,11 +3,9 @@ import React from 'react';
 const Person = (props) => {
     const { person } = props
     return (
-        <div>
-            <li>
-                <h4> {person.name} {person.number} </h4>
-            </li>
-        </div>
+        <li>
+            <h5> {person.name} {person.number} </h5>
+        </li>
     );
 };
 
