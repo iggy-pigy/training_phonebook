@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Person from "./components/Person";
+import Persons from "./components/Persons";
 
 const App = () => {
 
@@ -11,6 +11,8 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filterTerm, setFilterTerm] = useState("")
+  const [filterResult, setFilterResult] = useState([])
 
   const setNewContact = (event) => {
     event.preventDefault();
@@ -21,7 +23,7 @@ const App = () => {
     }
     setPersons(persons.concat(contactObject))
     setNewName("")
-    setNewNumber("'")
+    setNewNumber("")
   }
 
   const handleNameChange = (event) => {
@@ -34,10 +36,25 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const handleFilter = (event) => {
+    setFilterTerm(event.target.value);
+  }
+
+  React.useEffect(() => {
+    const results = persons.filter(person =>
+      person.name.toLowerCase().includes(filterTerm.toLowerCase())
+    );
+    setFilterResult(results);
+  }, [filterTerm]);
+
+
+
+
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <h4>filter shown with: <input onChange={handleFilter} value={filterTerm} /></h4>
       <h2>add a new</h2>
       <form onSubmit={setNewContact}>
         <div>
@@ -52,9 +69,7 @@ const App = () => {
       </form>
 
       <h2>Numbers</h2>
-      <ul>
-        {persons.map(person => <Person key={person.name} person={person} />)}
-      </ul>
+      <Persons persons={filterResult} />
     </div>
   );
 }
