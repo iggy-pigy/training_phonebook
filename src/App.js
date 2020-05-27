@@ -78,6 +78,18 @@ const App = () => {
 
 
 
+  const deletePerson = (id) => {
+    personsService
+      .remove(id)
+      .then(() => {
+        const filteredPersons = persons.filter(person => (person.id !== id))
+        setPersons(filteredPersons)
+      })
+      .catch(error => {
+        console.log('fail')
+      })
+  };
+
 
 
   return (
@@ -96,9 +108,8 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-
       <h2>Numbers</h2>
-      <Persons persons={filterResult} />
+      <Persons persons={filterResult} deletePersonFunc={deletePerson} />
     </div>
   );
 }
