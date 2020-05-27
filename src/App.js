@@ -17,7 +17,8 @@ const App = () => {
     /*axios
       .get('http://localhost:3001/persons')*/
 
-    personsService.getAll()
+    personsService
+      .getAll()
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
@@ -31,9 +32,14 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1,
     }
-    setPersons(persons.concat(contactObject))
-    setNewName("")
-    setNewNumber("")
+
+    personsService
+      .create(contactObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName("")
+        setNewNumber("")
+      })
   }
 
   const handleNameChange = (event) => {
