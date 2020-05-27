@@ -4,6 +4,7 @@ const baseUrl = 'http://localhost:3001/persons'
 const getAll = () => {
     //return axios.get(baseUrl)
 
+    //assign the promise to the request variable
     const request = axios.get(baseUrl)
     return request.then(response => response.data)
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Persons from "./components/Persons";
 //import axios from "axios";
+
+//imported module from services directory
 import personsService from "./services/persons";
 
 
@@ -19,11 +21,14 @@ const App = () => {
 
     personsService
       .getAll()
-      /*.then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)*/
+      //.then(response => {}
       .then(initialPersons => {
+
+        //setPersons(response.data)
         setPersons(initialPersons)
+      })
+      .catch(error => {
+        console.log('fail')
       })
   }, [])
 
@@ -37,10 +42,16 @@ const App = () => {
 
     personsService
       .create(contactObject)
+      //.then(response => {}
       .then(returnedPersons => {
+
+        //setPersons(persons.concat(response.data))
         setPersons(persons.concat(returnedPersons))
         setNewName("")
         setNewNumber("")
+      })
+      .catch(error => {
+        console.log('fail')
       })
   }
 
