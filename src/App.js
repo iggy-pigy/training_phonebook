@@ -19,9 +19,11 @@ const App = () => {
 
     personsService
       .getAll()
-      .then(response => {
+      /*.then(response => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(response.data)*/
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
 
@@ -35,8 +37,8 @@ const App = () => {
 
     personsService
       .create(contactObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+      .then(returnedPersons => {
+        setPersons(persons.concat(returnedPersons))
         setNewName("")
         setNewNumber("")
       })
