@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Persons from "./components/Persons";
-import axios from "axios";
+//import axios from "axios";
+import personsService from "./services/persons";
 
 
 const App = () => {
@@ -12,9 +13,11 @@ const App = () => {
   const [filterResult, setFilterResult] = useState([])
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
+
+    /*axios
+      .get('http://localhost:3001/persons')*/
+
+    personsService.getAll()
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
