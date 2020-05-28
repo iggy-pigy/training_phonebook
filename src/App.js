@@ -5,6 +5,7 @@ import Persons from "./components/Persons";
 //imported module from services directory
 import personsService from "./services/persons";
 import Notification from "./components/Notification";
+import ErrorNotification from "./components/ErrorNotification";
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
   const [filterTerm, setFilterTerm] = useState("")
   const [filterResult, setFilterResult] = useState([])
   const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
 
@@ -85,15 +87,21 @@ const App = () => {
 
 
   const deletePerson = (id) => {
+    const person = persons.find(person => person.id === id)
+    console.log(person.name);
     personsService
       .remove(id)
-      .then(() => {
-        const filteredPersons = persons.filter(person => (person.id !== id))
-        setPersons(filteredPersons)
-      })
       .catch(error => {
-        console.log('fail')
+        setErrorMessage(
+          `Information of ${person.name} has already been removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setPersons(persons.filter(person => (person.id !== id)))
       })
+    //const filteredPersons = persons.filter(person => (person.id !== id))
+
   };
 
 
@@ -102,6 +110,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={successMessage} />
+      <ErrorNotification message={errorMessage} />
       <h5>filter shown with: <input onChange={handleFilter} value={filterTerm} /></h5>
       <h2>add a new</h2>
       <form onSubmit={setNewContact}>
