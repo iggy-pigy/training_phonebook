@@ -4,6 +4,7 @@ import Persons from "./components/Persons";
 
 //imported module from services directory
 import personsService from "./services/persons";
+import Notification from "./components/Notification";
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filterTerm, setFilterTerm] = useState("")
   const [filterResult, setFilterResult] = useState([])
+  const [successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
 
@@ -49,6 +51,10 @@ const App = () => {
         setPersons(persons.concat(returnedPersons))
         setNewName("")
         setNewNumber("")
+        setSuccessMessage(`Added ${contactObject.name}.`)
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 3000)
       })
       .catch(error => {
         console.log('fail')
@@ -95,6 +101,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage} />
       <h5>filter shown with: <input onChange={handleFilter} value={filterTerm} /></h5>
       <h2>add a new</h2>
       <form onSubmit={setNewContact}>
