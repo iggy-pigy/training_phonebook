@@ -59,7 +59,11 @@ const App = () => {
         }, 3000)
       })
       .catch(error => {
-        console.log('fail')
+        setErrorMessage(`${error.response.data.error}`)
+        console.log(error.response.data)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 7000)
       })
   }
 
